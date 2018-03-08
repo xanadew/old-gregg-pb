@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i,800');
+
+    .Background{
+    background-image: url(../pbback2.jpg);
+    color:red;
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+ };
+    .App{
+      display:flex;
+      flex-direction:row;
+      flex-wrap:nowrap;
+      justify-content:center;
+      align-items:center;
+      align-content:center;
+    }
+.splash-screen{
+    border-radius:8px;
+    box-shadow:0 2px 10px 0  rgba(0, 0, 0, 0.25), 0 2px 2px 0 rgba(0, 0, 0, 0.26);
+    height:350px;
+    width:378px;
+    background-image: url('../logo-main.png');
+    background-size: contain;
+    background-repeat:no-repeat;
+    display:flex;
+    flex-direction: column;
+    flex-wrap:nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+div.logo-main{
+    background-image: url('../logo-main.png');
+    display:block;
+    margin:auto;
+    margin:0px;
+}
+.login{
+    border-radius:3px;
+    background-color:#403D39;
+    color:white;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    border:none;
+    height:35px;
+    width:225px;
+    margin-top:200px;
+    font-family: 'Open Sans', sans-serif;
+    font-size:14px;
+    font-weight:600;
+    -moz-transition: all .1s ease-in;
+    -o-transition: all .1s ease-in;
+    -webkit-transition: all .1s ease-in;
+    transition: all .1s ease-in;
+}
+button:focus{
+    outline:none;
+}
+button:hover{
+    background-color:#ff9770;
+}
+h1{
+    margin:10px;
+}

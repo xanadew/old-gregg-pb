@@ -1,0 +1,13 @@
+*{
+    box-sizing:border-box;
+}
+
+.Dash{
+    background-image:url('../dash.jpg');
+    background-size:cover;
+    height:100vh;
+    overflow:hidden;
+}
+.arrow{
+    
+}
