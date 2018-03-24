@@ -2,7 +2,10 @@
 import React from "react"
 import './Locator.css'
 import { compose, withProps, withHandlers, withState } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
+import {SearchBox} from "react-google-maps/lib/components/places/SearchBox"
+
+
 
 const MyMapComponent = compose(
     withProps({
@@ -14,6 +17,7 @@ const MyMapComponent = compose(
     withScriptjs,
     withGoogleMap,
     withState('places', 'updatePlaces', ''),
+    withState('selectedPlace', 'updateSelectedPlace', null),
     withHandlers(() => {
         const refs = {
             map: undefined,
@@ -23,8 +27,10 @@ const MyMapComponent = compose(
             onMapMounted: () => ref => {
                 refs.map = ref
             },
+            onSearchBoxMounted: () => ref => {
+                refs.searchBox = ref
+            },
             fetchPlaces: ({ updatePlaces }) => () => {
-                let places;
                 const bounds = refs.map.getBounds();
                 const service = new google.maps.places.PlacesService(refs.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED);
                 const request = {
@@ -38,6 +44,9 @@ const MyMapComponent = compose(
                         updatePlaces(results);
                     }
                 })
+            },
+            onToggleOpen: ({ updateSelectedPlace}) => key => {
+                updateSelectedPlace(key);
             }
         }
     }),
@@ -50,8 +59,42 @@ const MyMapComponent = compose(
             defaultZoom={10}
             defaultCenter={{ lat: 40.2574448, lng: -111.7089488 }}
         >
+        <SearchBox
+        ref={props.onSearchBoxMounted}
+        bounds={props.bounds}
+        controlPosition={google.maps.ControlPosition.TOP_LEFT}
+        onPlacesChanged={props.onPlacesChanged}>
+            <input
+            type='text'
+            placeholder='ghost of text past'
+            style={{
+                boxSizing: 'border-box',
+                border: '1px solid transparent',
+                width: '240px',
+                height: '32px',
+                marginTop: '27px',
+                padding: `0 12px`,
+                borderRadius: `3px`,
+                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3`,
+                fontSize: `14px`,
+                outline: `none`,
+                textOverflow: `ellipses`
+            }}
+            />
+            </SearchBox>
             {props.places && props.places.map((place, i) =>
-                <Marker key={i} position={{ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }} />
+                <Marker 
+                onClick={() => props.onToggleOpen(i)} 
+                key={i} position={{ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }}>
+                {props.selectedPlace === i && <InfoWindow onCloseClick={props.onToggleOpen}>
+            
+                    <div>
+                        {props.places[props.selectedPlace].name} <br/>
+                        {props.places[props.selectedPlace].rating}
+                        
+                    </div>
+                </InfoWindow>}
+                </Marker>
             )}
         </GoogleMap>
     )

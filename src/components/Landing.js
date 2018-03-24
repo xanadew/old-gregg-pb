@@ -8,7 +8,7 @@ export default class Landing extends Component {
                 <div className="Background">
                     <div className="splash-screen">
                     <div className="logo-main"></div>
-                    <a href={process.env.REACT_APP_LOGIN}>
+                    <a href='http://localhost:3000/#/dash'>
                     <button className="login">Login / Register
                     </button>
                     </a>

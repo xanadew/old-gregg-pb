@@ -19,7 +19,8 @@ class Dash extends Component {
                         <button className="logout">BEGONE</button></a>
                 </nav>
                 <div className={this.state.slide?'slide dropdown':'dropdown'}>
-                    <button className='fs_locator'>Field/Store Locator</button>
+                <a href='http://localhost:3000/#/locator'>
+                    <button className='fs_locator'>Field/Store Locator</button></a>
                     <div className='rec_stores'>Recommended Online Stores</div>
                     <div className='fs_reviews'>Field/Store Reviews</div>
                     <div className='forums'>Forums</div>
