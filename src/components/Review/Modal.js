@@ -20,7 +20,6 @@ class Modal extends Component {
             reviewDesc: this.state.reviewDesc})
             .then(res=>{
                 this.props.closed();
-                this.props.history.push('/dash');
         }).catch(console.log)
     }
 
@@ -43,7 +42,7 @@ class Modal extends Component {
                             type="text" 
                             value={this.state.reviewName}
                             onChange={ (e) => this.handleNameChange(e.target.value)}
-                            placeholder={"Review Title (20 character limit)"}/>
+                            placeholder={"Field Name (20 character limit)"}/>
                         <input 
                             className="inputs" 
                             type="text" 

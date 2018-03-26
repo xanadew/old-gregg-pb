@@ -41,7 +41,7 @@
     margin: 10px;
 }
 
-.buttonGoal {
+.buttonReview {
     border: none;
     outline: none;
     cursor: pointer;
@@ -63,7 +63,7 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FD8C7A',endColorstr='#FD75A2' , GradientType=1);
 }
 
-.buttonGoal:hover {
+.buttonReview:hover {
     /* border: #ffffff79 solid 1px; */
     background : -moz-linear-gradient(0% 50% 0deg,rgba(253, 140, 122, 1) 0%,rgba(253, 130, 140, 1) 39.9%,rgba(253, 117, 162, 1) 97.1%);
     background : -webkit-linear-gradient(0deg, rgba(253, 140, 122, 1) 0%, rgba(253, 130, 140, 1) 39.9%, rgba(253, 117, 162, 1) 97.1%);
@@ -76,7 +76,7 @@
     transform: translateY(2px);
 }
 
-.buttonGoal:active {
+.buttonReview:active {
     background : -moz-linear-gradient(0% 50% 0deg,rgba(253, 140, 122, 1) 0%,rgba(253, 130, 140, 1) 39.9%,rgba(253, 117, 162, 1) 97.1%);
     background : -webkit-linear-gradient(0deg, rgba(253, 140, 122, 1) 0%, rgba(253, 130, 140, 1) 39.9%, rgba(253, 117, 162, 1) 97.1%);
     background : -webkit-gradient(linear,0% 50% ,100% 50% ,color-stop(0,rgba(253, 140, 122, 1) ),color-stop(0.399,rgba(253, 130, 140, 1) ),color-stop(0.971,rgba(253, 117, 162, 1) ));

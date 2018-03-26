@@ -6,6 +6,7 @@ const express=require('express'),
       massive=require('massive');
       bodyParser=require('body-parser');
       // cors=require('cors');
+const display_ctr = require('./controller/display_controller');
 
 const {
     SERVER_PORT,
@@ -21,7 +22,7 @@ const {
 
 const app=express();
 app.use(bodyParser.json());
-const display_ctr = require('./controller/display_controller');
+
 
 
 

@@ -4,7 +4,7 @@ import './Locator.css'
 import { compose, withProps, withHandlers, withState } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
 import {SearchBox} from "react-google-maps/lib/components/places/SearchBox"
-
+import Header from './Header';
 
 
 const MyMapComponent = compose(
@@ -70,7 +70,7 @@ const MyMapComponent = compose(
             style={{
                 boxSizing: 'border-box',
                 border: '1px solid transparent',
-                width: '240px',
+                width: '140px',
                 height: '32px',
                 marginTop: '27px',
                 padding: `0 12px`,
@@ -111,23 +111,7 @@ export default class Locator extends React.PureComponent {
     render() {
         return (
             <div>
-            <nav className="nav">
-                
-            <div onClick={()=>this.setState({slide:!this.state.slide})}
-                className="arrow">V</div>
-            <div className="arrow">FIELD/STORE LOCATOR</div>
-                <a href="http://localhost:3000/">
-                <button className="logout">BEGONE</button></a>
-        </nav>
-        <div className={this.state.slide?'slide dropdown':'dropdown'}>
-                <a href='http://localhost:3000/#/locator'>
-                    <button className='fs_locator'>Field/Store Locator</button></a>
-                    <a href='http://localhost:3000/#/create'>
-                    <button className='fs_locator'>Create A Review</button></a>
-                    <div className='forums'>Forums</div>
-                    <div className='events'>Events</div>
-                    <div className='np_guide'>New Player Guide</div>
-                </div>
+<               Header/>
                     <MyMapComponent />
             </div>
             

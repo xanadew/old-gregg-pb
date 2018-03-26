@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { addReview } from '../../ducks/reducer'
 // import { Link } from 'react-router-dom'
 import {StyleRoot} from 'radium';
+import Header from '../Header';
 
 
 
@@ -14,6 +15,7 @@ class CreateReview extends Component {
             reviewNameInput: '',
             reviewDescInput: ''
         }
+        this.submitReview=this.submitReview.bind(this);
     }
     
     handleNameChange ( value ){
@@ -48,7 +50,7 @@ class CreateReview extends Component {
                             type="text" 
                             value={this.state.value}
                             onChange={ (e) => this.handleNameChange(e.target.reviewName)}
-                            placeholder="Review Title (20 character limit)"/>
+                            placeholder="Field Name (20 character limit)"/>
                         <input 
                             className="inputs" 
                             type="text" 
@@ -57,12 +59,13 @@ class CreateReview extends Component {
                             placeholder="Review Description(optional)"/>
                         <div>
                             <button type="reset"style={buttonLarger} className="buttonReview">Reset</button>
-                            <button onClick={() => this.submitReview()} style={buttonLarger} className="buttonReview">Create Review</button>
-                            
+                            <button onClick={() => this.submitReview()} type='submit' style={buttonLarger} className="buttonReview">Create Review</button>
+
                         </div>
                     </form>
                 </div>
             </div>
+            <Header/>
             </StyleRoot>
             </div>
         )
