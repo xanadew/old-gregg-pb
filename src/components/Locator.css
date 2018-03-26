@@ -2,10 +2,10 @@
     box-sizing: border-box;
 }
 .map{
-    width:75vw;
+    width:100vw;
     height:75vh;
     display: inline-block;
-    position:relative;
+    position: relative;
     margin-top:25px;
 }
 

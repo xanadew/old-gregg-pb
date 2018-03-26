@@ -1,18 +1,16 @@
-CREATE TABLE users (
-  id SERIAL,
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
   auth0_id TEXT,
   email TEXT,
   pictureUrl TEXT,
   name TEXT
 );
 
-CREATE TABLE goals (
-    goalsid SERIAL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS reviews (
+    reviewsid SERIAL PRIMARY KEY,
     users INTEGER REFERENCES users(id),
-    goalname TEXT,
-    description TEXT,
-    startdate TEXT,
-    enddate TEXT
+    reviewname TEXT,
+    description TEXT
 );
 
 

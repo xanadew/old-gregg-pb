@@ -1,0 +1,47 @@
+.reviewTitle {
+    text-align: center;
+    font-family: 'Raleway';
+    color: white;
+    font-size: 2em;
+}
+
+.checkBox {
+    border: 1px solid rgb(89, 95, 121);
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    margin: 0;
+    padding: 0;
+}
+
+.true{
+    background-color: #716e9bc7;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #333243;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #333243; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(35, 36, 49); 
+}
+
+::-webkit-scrollbar-corner{
+    background: #333243;
+}
+
+

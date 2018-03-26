@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import {StyleRoot} from 'radium'
-
+import './Modal.css';
+import {StyleRoot} from 'radium';
 
 class Modal extends Component {
     constructor(props) {
@@ -19,7 +19,8 @@ class Modal extends Component {
             reviewName: this.state.reviewName, 
             reviewDesc: this.state.reviewDesc})
             .then(res=>{
-                this.props.closed()
+                this.props.closed();
+                this.props.history.push('/dash');
         }).catch(console.log)
     }
 
@@ -33,7 +34,7 @@ class Modal extends Component {
     render() {    
         return (
             <div>
-                <StyleRoot>
+               <StyleRoot>
                 <div className={this.props.show ? "ModalOpen" : "ModalClosed"}>
                     <div className="titleText">Edit</div>
                 <form className="formyForm" >
@@ -46,7 +47,7 @@ class Modal extends Component {
                         <input 
                             className="inputs" 
                             type="text" 
-                            value={this.state.value}
+                            value={this.state.reviewDesc}
                             onChange={ (e) => this.handleDescChange(e.target.value)}
                             placeholder="Review Description"/>
                         <div>
@@ -55,7 +56,7 @@ class Modal extends Component {
                         </div>
                     </form>
                 </div>
-                </StyleRoot>
+              </StyleRoot>
             </div>
         )
     }

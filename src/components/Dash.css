@@ -86,3 +86,91 @@
 .np_guide{
     padding:10px;
 }
+.body{
+  height: 100%;
+  width: 100vw;
+  margin: auto;
+  background : -moz-linear-gradient(50% 0% -90deg,rgba(30, 31, 50, 1) 0%,rgba(41, 40, 57, 1) 100%);
+      background : -webkit-linear-gradient(-90deg, rgba(30, 31, 50, 1) 0%, rgba(41, 40, 57, 1) 100%);
+      background : -webkit-gradient(linear,50% 0% ,50% 100% ,color-stop(0,rgba(30, 31, 50, 1) ),color-stop(1,rgba(41, 40, 57, 1) ));
+      background : -o-linear-gradient(-90deg, rgba(30, 31, 50, 1) 0%, rgba(41, 40, 57, 1) 100%);
+      background : -ms-linear-gradient(-90deg, rgba(30, 31, 50, 1) 0%, rgba(41, 40, 57, 1) 100%);
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#1E1F32', endColorstr='#292839' ,GradientType=0)";
+      background : linear-gradient(180deg, rgba(30, 31, 50, 1) 0%, rgba(41, 40, 57, 1) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1E1F32',endColorstr='#292839' , GradientType=0);
+}
+.datess {
+  color: #d2d2d6;
+  background-color: #292839;
+  outline:  none;
+  border: 1px #2e2d3f inset;
+  margin-top: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 10px;
+  font-size: 20pt;
+  width: 12vw;
+}
+.inputs {
+  color: #d2d2d6;
+  background-color: #292839;
+  outline:  none;
+  margin: auto;
+  border: 1px #2e2d3f inset;
+  display: block;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 20pt;
+  width: 27vw;
+}
+p {
+  color: #555568;
+  font-family: 'Raleway','serif';
+}
+.formyForm {
+    margin-top: 30px;
+  }
+          
+  .noDecor {
+    text-decoration: none;
+  }
+  @media (max-width: 1100px){
+    .inputs {
+      width: 32.5vw;
+    }
+    .datess {
+      width: 15vw;
+    }
+  }
+  
+  @media (max-width: 730px){
+    .inputs {
+      margin-top: 15px;
+      padding: 10px;
+      font-size: 20pt;
+      width: 50vw;
+    }
+    .datess {
+      width: 23vw;
+    }
+  }
+  @media (max-width: 538px){
+    .inputs {
+      font-size: 15pt;
+      width: 60vw;
+    }
+    .datess {
+      width: 27vw;
+      font-size: 15pt;
+    }
+    p {
+      margin: 15px;
+    }
+  }
+  
+  @media (max-width: 515px) {
+    .body{
+      height: 150%;
+    }
+  }
+  

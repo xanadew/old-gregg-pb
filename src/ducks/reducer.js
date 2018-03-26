@@ -5,16 +5,13 @@ const initialState = {
     data: []
   };
   
-  const LOGIN = 'LOGIN';
   const GETREVIEWS = 'GETREVIEWS';
   const ADDREVIEW = "CREATEREVIEW";
+  const GET_USER='GET_USER';
 
   
   export default (state = initialState, action) => {
     switch (action.type) {
-      case LOGIN + "_FULFILLED":
-        return { ...state, user: action.payload };
-      
       case GETREVIEWS + "_FULFILLED":
      
         return { ...state, data: action.payload };
@@ -22,22 +19,24 @@ const initialState = {
       case ADDREVIEW + "_FULFILLED":
           return {...state, review: action.payload};
 
+      case GET_USER + "_FULFILLED":
+        return {...state, user: action.payload};
+
       default:
         return state;
     }
   };
   
-  export const login = () => {
-    var request = axios.get('/user-data').then(response => {
-      if (response.data) {
-        return response.data
-      }
-    })
+  export function getUser(){                             //action creator
+    let request=axios.get('/auth/me').then(res=>{
+        console.log(res.data)
+        return res.data;
+    })               
     return {
-      type: LOGIN,
-      payload: request,
-    };
-  };
+        type:GET_USER,
+        payload:request          
+    }
+}
 
   export var getReviews = () => {
     var request = axios.get('/api/reviews').then(response => {

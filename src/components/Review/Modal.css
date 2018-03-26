@@ -1,0 +1,93 @@
+/* .Modal {
+    position: fixed;
+    z-index: 200;
+    -webkit-box-shadow: 10px 10px 38px -4px rgba(0,0,0,1);
+    -moz-box-shadow: 10px 10px 38px -4px rgba(0,0,0,1);
+    box-shadow: 10px 10px 38px -4px rgba(0,0,0,1);
+    background-color: #242330;
+    text-align: center;
+    box-sizing: border-box;
+    top: 10%;
+    left: 25%;
+    width: 50%;
+    padding-bottom: 50px;
+    opacity: 0;
+}
+    */
+    
+
+
+    .ModalOpen {
+        position: fixed;
+        z-index: 200;
+        -webkit-box-shadow: 10px 10px 38px -4px rgba(0,0,0,1);
+        -moz-box-shadow: 10px 10px 38px -4px rgba(0,0,0,1);
+        box-shadow: 10px 10px 38px -4px rgba(0,0,0,1);
+        background-color: #242330;
+        text-align: center;
+        box-sizing: border-box;
+        top: 10%;
+        left: 25%;
+        width: 500px;
+        padding-bottom: 50px;
+        animation-name: openModal;
+        animation-duration: .6s;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: forwards;
+        opacity: 1;
+    
+    }
+    
+    .ModalClosed {
+        position: fixed;
+        z-index: 200;
+        -webkit-box-shadow: 10px 10px 38px -4px rgba(0,0,0,1);
+        -moz-box-shadow: 10px 10px 38px -4px rgba(0,0,0,1);
+        box-shadow: 10px 10px 38px -4px rgba(0,0,0,1);
+        background-color: #242330;
+        text-align: center;
+        box-sizing: border-box;
+        top: 10%;
+        left: 25%;
+        width: 50%;
+        padding-bottom: 50px;
+        animation-name: closeModal;
+        animation-duration: .6s;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: forwards;
+        opacity: 0;
+        /* transform: translateY(-100%) */
+    }
+    
+    @keyframes openModal {
+        0%   {opacity: 0;
+            transform: translateY(-100%);}
+        80%   {opacity: 1;
+            transform: translateY(10%);}
+        100%   {opacity: 1;
+            transform: translateY(0);}
+    }
+    
+    @keyframes closeModal {
+        0%   {opacity: 1;
+            transform: translateY(0);}
+        /* 50%   {opacity: 0.8;
+            transform: translateY(10%);} */
+        100%   {opacity: 0;
+            transform: translateY(-100%);}
+    }
+    
+    @media (max-width: 730px){
+        .ModalOpen{
+            width: 80%;
+            left: 10%;
+        }
+    }
+    @media (max-width: 450px){
+        .ModalOpen{
+            width: 90%;
+            left: 5%;
+        }
+    }

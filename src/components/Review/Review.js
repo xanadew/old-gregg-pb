@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {StyleRoot} from 'radium';
 import ReactLoading from 'react-loading';
+import './Review.css';
+import {StyleRoot} from 'radium';
+import {Link} from 'react-router-dom';
 
-
+import Backdrop from './Backdrop';
 import Modal from "./Modal";
 
 
@@ -40,9 +42,9 @@ export class Review extends Component {
         })
     }
 
-    deletereview(){
-        return axios.delete(`/api/review/subtasks/${this.props.match.params.reviewsid}`).then(results=>{
-                    this.props.history.push('/home')
+    deleteReview(){
+        return axios.delete(`/api/review/${this.props.match.params.reviewsid}`).then(results=>{
+                    this.props.history.push('/dash')
         }).catch(console.log)
     }
 
@@ -77,28 +79,28 @@ export class Review extends Component {
                         {this.state.modalIsOpen ? 
                         <Modal review={e.reviewsid} show={this.state.modalIsOpen} closed={this.closeModal}/>
                         : null}
+                        <Backdrop show={this.state.modalIsOpen} />
                         <div className="rapper">
                             <div style={styleYo.primary}>
-                                <div style={[styleYo.base, styleYo.name]}>{e.reviewname}</div>
-                                <div style={[styleYo.base, styleYo.desc]}>{e.description}</div>
-                                <div style={[styleYo.base, styleYo.dates]}>Start Date: 
-                                {e.startdate}<br/>
-                                review Date: {e.enddate}
+                                <div style={styleYoName}>{e.reviewname}</div>
+                                <div style={styleYoDesc}>{e.description}</div>
                                 <div style={buttonTwo}>
                                 <button className="buttonReview" style={button} onClick={this.deleteReview}>Delete review</button>
                                 <button onClick={() => this.showModal()} style={button} className="buttonReview">Edit</button>
+                                <Link className="buttonReview" style={button} to="/dash">Cancel</Link>
                                 </div>
-                                </div>
+                                
                             </div>
+                            <div style={backdrop}>
                                 <div><ReactLoading type="bubbles" color="white"/></div>
-                            }
+                          </div>  
                         </div>
                     </div>
                             :  <div className="loadingBackDrop">
                                     <div><div><ReactLoading type="bubbles" color="white" width="200px" height="200px"/></div></div>
                                 </div>}
                 </div>
-                </StyleRoot>
+               </StyleRoot>
             </div>
         )
     }
@@ -141,6 +143,13 @@ const styleYo = {
         }
     }
 }
+const styleYoName=Object.assign({},
+    styleYo.base,
+    styleYo.name)
+
+const styleYoDesc=Object.assign({},
+styleYo.desc,
+styleYo.base)
 
 const button = {
     border: 'none',

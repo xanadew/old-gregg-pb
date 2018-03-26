@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addReview } from '../../ducks/reducer'
 // import { Link } from 'react-router-dom'
-import {StyleRoot} from 'radium'
-
+import {StyleRoot} from 'radium';
 
 
 
@@ -29,7 +28,7 @@ class CreateReview extends Component {
             reviewName: this.state.reviewName,
             reviewDesc: this.state.reviewDesc,
         }).then( () => {
-            this.props.history.push('/home')
+            this.props.history.push('/dash')
         })
     }
     
@@ -39,7 +38,7 @@ class CreateReview extends Component {
             <div>
                 <StyleRoot>
                 <div className="homePage">
-]                <div className="rapperLarge">
+                <div className="rapperLarge">
                     <div className="titleText">Create your review</div>
                     <p style={paragraph}>Create a review. You are able to create up to 10 reviews. Once you create a review <br/>
                     you can add tasks.</p>
@@ -48,17 +47,18 @@ class CreateReview extends Component {
                             className="inputs" 
                             type="text" 
                             value={this.state.value}
-                            onChange={ (e) => this.handleNameChange(e.target.value)}
+                            onChange={ (e) => this.handleNameChange(e.target.reviewName)}
                             placeholder="Review Title (20 character limit)"/>
                         <input 
                             className="inputs" 
                             type="text" 
                             value={this.state.value}
-                            onChange={ (e) => this.handleDescChange(e.target.value)}
+                            onChange={ (e) => this.handleDescChange(e.target.reviewDesc)}
                             placeholder="Review Description(optional)"/>
                         <div>
                             <button type="reset"style={buttonLarger} className="buttonReview">Reset</button>
                             <button onClick={() => this.submitReview()} style={buttonLarger} className="buttonReview">Create Review</button>
+                            
                         </div>
                     </form>
                 </div>

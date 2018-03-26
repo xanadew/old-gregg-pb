@@ -1,71 +1,111 @@
 require('dotenv').config();
-const express = require('express')
-const bodyParser = require('body-parser')
-const massive = require('massive')
-const session = require('express-session');
-const axios = require ('axios')
-const path = require('path')
+const express=require('express'),
+      session=require('express-session'),
+      passport=require('passport'),
+      Auth0Strategy=require('passport-auth0'),
+      massive=require('massive');
+      bodyParser=require('body-parser');
+      // cors=require('cors');
 
+const {
+    SERVER_PORT,
+    SESSION_SECRET,
+    DOMAIN,
+    CLIENT_ID,
+    CLIENT_SECRET,
+    CALLBACK_URL,
+    CONNECTION_STRING,
+    REACT_APP_PRIVATE,
+    REACT_APP_FAILURE
+}=process.env;
 
-const display_ctr = require('./controllers/display_controller');
-
-
-
-const app = express();
-
-app.use( express.static( `${__dirname}/../build` ) );
-
-
+const app=express();
 app.use(bodyParser.json());
+const display_ctr = require('./controller/display_controller');
+
+
+
+massive(CONNECTION_STRING).then(db=>{
+    app.set('db',db);
+});
+
+app.use(express.static(`${__dirname}/../build`))
+
+app.use((req, res, next) => {
+    res.set({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': REACT_APP_FAILURE,
+      'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+      'Access-Control-Allow-Credentials': true,
+      'X-XSS-Protection': '1; mode=block',
+      'X-Frame-Options': 'SAMEORIGIN',
+      'Content-Security-Policy': "default-src 'self' unsafe-inline devmountain.github.io"
+    })
+    next();
+  });
+
 app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-  }));
+    secret:SESSION_SECRET,
+    resave:false,
+    saveUninitialized:true
+}))
+app.use(passport.initialize());
+app.use(passport.session());
 
-
-massive(process.env.CONNECTION_STRING)
-.then( db => {
-    app.set('db', db)
-}).catch(error => {
-    console.log('error', error);
-  });
-
-  app.post('/login', (req, res) => {
-    const { userId } = req.body;
-    const auth0Url = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/api/v2/users/${userId}`;
-    axios.get(auth0Url, {
-      headers: {
-        Authorization: 'Bearer ' + process.env.AUTH0_MANAGEMENT_ACCESS_TOKEN
-      }
-    }).then(response => {
-      const userData = response.data;
-      app.get('db').find_user(userData.user_id).then(users => {
-        if (users.length) {
-          req.session.user = users[0]
-          res.json({ user: req.session.user });
-        } else {
-          app.get('db').create_user([userData.user_id, userData.email, userData.picture, userData.name]).then( user => {
-            req.session.user = user[0];
-            res.json({ user: req.session.user });
-          }).catch(error => {
-            console.log('error', error);
-          });
+passport.use(new Auth0Strategy({
+    domain:DOMAIN,
+    clientID:CLIENT_ID,
+    clientSecret:CLIENT_SECRET,
+    callbackURL:CALLBACK_URL,
+    scope:'openid profile'
+},function(accessToken,refreshToken,extraParams,profile,done){
+    const db=app.get('db')
+    db.find_user([profile.id]).then(users=>{ //massive convention is to pass info in as array
+        if (!users[0]){
+            db.create_user([profile.displayName,profile.picture,profile.id]) //massive convention is to pass info in as array
+            .then(userCreated=>{
+                done(null,userCreated[0].id)
+            })
+        } else{
+            done(null,users[0].id)
         }
-      })
-    }).catch(error => {
-      console.log('error', error);
-      res.status(500).json({ message: 'Oh noes!' });
-    });
-  });
-  
-  app.get('/user-data', (req, res) => {
-    if(req.session.user){
-      res.status(200).send(req.session.user);
-  } else {
-      res.status(403);
-  }
-  });
+    })
+}))
+
+passport.serializeUser((id,done)=>{
+    done(null,id)
+})
+passport.deserializeUser((id,done)=>{                       // takes sid, gets uid, queries db, returns current user, 
+    app.get('db').find_session_user([id]).then(user=>{      // appends to req obj as req.user (represents current user) <- REMEMBER!
+        done(null,user[0]);
+    })                                                     
+                         
+})
+
+app.get('/auth',passport.authenticate('auth0'));
+app.get('/auth/callback',passport.authenticate('auth0',{
+    successRedirect:REACT_APP_PRIVATE,
+    failureRedirect:REACT_APP_FAILURE
+}))
+app.get('/auth/me',(req,res)=>{
+    if(!req.user){
+        res.status(403).send('sup')
+    }else{
+        res.status(200).send(req.user);
+    }
+})
+app.get('/testing',(req,res)=>{
+    res.status(200).send('testing');
+})
+app.get('/auth/logout',(req,res)=>{
+    req.logOut()
+    res.redirect(REACT_APP_FAILURE)
+})
+
+app.listen(SERVER_PORT,()=>console.log(`ITS OVER ${SERVER_PORT}`));
+
+
 
 app.get('/api/reviews', display_ctr.read);
 app.get('/api/review/:reviewsid', display_ctr.getOne);
@@ -74,14 +114,4 @@ app.delete('/api/review/:reviewsid', display_ctr.deleteReview);
 app.put('/api/review/:reviewsid', display_ctr.editReview);
 
 
-const db = app.get('db');
 
-
-app.get('*', (req, res)=>{
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-})
-
-
-const port = 80;
-
-app.listen(port, () => console.log(`I'm listening... on port: ${port}`));

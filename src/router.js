@@ -16,7 +16,7 @@ export default (
         <Route path="/dash" component={ Dash }/>
         <Route path="/review/:reviewsid" component={ Review }/>
         <Route path="/review/:reviewsid" component={ Modal }/>
-        <Route path="/Create" component={ CreateReview }/>
+        <Route path="/create" component={ CreateReview }/>
         <Route path="/locator" component={Locator}/>
     </Switch>
 )
