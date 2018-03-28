@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS reviews (
     reviewsid SERIAL PRIMARY KEY,
-    users INTEGER REFERENCES users(id),
+    id INTEGER,
     reviewname TEXT,
     description TEXT
 );

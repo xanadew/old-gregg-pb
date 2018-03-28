@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import "./ReviewCards.css"
-
+import { connect } from 'react-redux';
 
 
 
@@ -12,12 +12,18 @@ class ReviewCards extends Component {
         super()
         this.state = {
             data: [],
+            joinid:[]
         }
        
     }
    
     componentDidMount() {
-        this.filterArray()
+        this.filterArray();
+        axios.get('/api/reviewbyuser').then(res=>{
+            this.setState({
+                joinid:res.data
+            })
+        })
     }
 
     filterArray(){
@@ -29,14 +35,17 @@ class ReviewCards extends Component {
     }
    
     render() {
+        console.log('reviewcards state:',this.state)
         return (
             <div className="why">
-            {this.state.data.map((e, i) =>{
+            {this.state.joinid.map((e, i) =>{
                  return (
                     <div key={i}>
                         <div>{this.array}</div>
                         <div className="rapper" style={heighty0}>
                             <div className="titleText">{e.reviewname}</div>
+                            <br/>
+                            <div className='userText'>{e.auth0_id}</div>
                             <div style={layoutButton}>
                             <Link className="noDecor" to={`/review/${e.reviewsid}`}><span className="buttonReview">Go to Review</span></Link>
                             </div>
@@ -58,7 +67,11 @@ var heighty0 = {
     height: '225px',
 }
 
-
+function mapStateToProps(state){
+    return {
+        user:state.user
+    }
+}
   
-export default ReviewCards;
+export default connect(mapStateToProps)(ReviewCards);
 

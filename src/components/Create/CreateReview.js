@@ -4,7 +4,7 @@ import { addReview } from '../../ducks/reducer'
 // import { Link } from 'react-router-dom'
 import {StyleRoot} from 'radium';
 import Header from '../Header';
-
+import axios from 'axios';
 
 
 
@@ -13,9 +13,17 @@ class CreateReview extends Component {
         super()
         this.state = {
             reviewNameInput: '',
-            reviewDescInput: ''
+            reviewDescInput: '',
+            user:{}
         }
         this.submitReview=this.submitReview.bind(this);
+    }
+    componentDidMount(){
+        axios.get('/auth/me').then((res)=>{
+            this.setState({
+                user:res.data
+            })}
+        )
     }
     
     handleNameChange ( value ){
@@ -27,6 +35,7 @@ class CreateReview extends Component {
 
     submitReview(){
         this.props.addReview({
+            id: this.state.user.id,
             reviewName: this.state.reviewName,
             reviewDesc: this.state.reviewDesc,
         }).then( () => {
@@ -36,6 +45,8 @@ class CreateReview extends Component {
     
 
     render() {
+        console.log('createreview state:',this.state)
+
         return (
             <div>
                 <StyleRoot>
@@ -49,13 +60,13 @@ class CreateReview extends Component {
                             className="inputs" 
                             type="text" 
                             value={this.state.value}
-                            onChange={ (e) => this.handleNameChange(e.target.reviewName)}
+                            onChange={ (e) => this.handleNameChange(e.target.value)}
                             placeholder="Field Name (20 character limit)"/>
                         <input 
                             className="inputs" 
                             type="text" 
                             value={this.state.value}
-                            onChange={ (e) => this.handleDescChange(e.target.reviewDesc)}
+                            onChange={ (e) => this.handleDescChange(e.target.value)}
                             placeholder="Review Description(optional)"/>
                         <div>
                             <button type="reset"style={buttonLarger} className="buttonReview">Reset</button>

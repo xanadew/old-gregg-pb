@@ -3,6 +3,7 @@
     margin: 20px;
     background : #333243;
     box-shadow : 7px 7px 5px rgba(0, 0, 0, 0.4);
+    border-radius:5px;
 }
     
 .rapperLarge {
@@ -24,14 +25,23 @@
 }
 
 .titleText, .dates{
-    font-family: 'Raleway','serif';
+    font-family: 'Open Sans', sans-serif;
     color: white;
     padding: 20px;
 }
 
 .titleText {
-    font-size: 20pt;
-    background : #3F3E54;  
+    font-size: 17pt;
+    font-family: 'Open Sans', sans-serif;
+    background : #3F3E54;
+    border-radius:5px;
+}
+.userText{
+    font-size: 10pt;
+    font-family: 'Open Sans', sans-serif;
+    color:white;
+    background:#3F3E54;
+
 }
 
 .dates {

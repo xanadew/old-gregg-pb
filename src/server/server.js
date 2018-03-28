@@ -110,6 +110,7 @@ app.listen(SERVER_PORT,()=>console.log(`ITS OVER ${SERVER_PORT}`));
 
 app.get('/api/reviews', display_ctr.read);
 app.get('/api/review/:reviewsid', display_ctr.getOne);
+app.get('/api/reviewbyuser', display_ctr.getOneByUser);
 app.post('/api/review', display_ctr.addReview);
 app.delete('/api/review/:reviewsid', display_ctr.deleteReview);
 app.put('/api/review/:reviewsid', display_ctr.editReview);

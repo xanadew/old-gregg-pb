@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ReviewCards from './ReviewCards';
 import Header from './Header';
+import {getUser} from '../ducks/reducer';
 
 class Dash extends Component {
     constructor(){
@@ -11,6 +12,9 @@ class Dash extends Component {
         this.state={
             slide:true
         }
+    }
+    componentDidMount(){
+        getUser();
     }
     render() {
         return (

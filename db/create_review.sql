@@ -1,4 +1,4 @@
 INSERT INTO reviews 
-(reviewname, description, users)
+(id, reviewname, description)
 VALUES
 ($1, $2, $3);
