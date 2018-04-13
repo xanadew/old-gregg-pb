@@ -9,7 +9,7 @@ const express=require('express'),
 const display_ctr = require('./controller/display_controller');
 
 const {
-    SERVER_PORT,
+    PORT,
     SESSION_SECRET,
     DOMAIN,
     CLIENT_ID,
@@ -30,7 +30,7 @@ massive(CONNECTION_STRING).then(db=>{
     app.set('db',db);
 });
 
-app.use(express.static(`${__dirname}/../build`))
+app.use(express.static(`${__dirname}/../build`));
 
 app.use((req, res, next) => {
     res.set({
@@ -104,7 +104,7 @@ app.get('/auth/logout',(req,res)=>{
     res.redirect(REACT_APP_FAILURE)
 })
 
-app.listen(SERVER_PORT,()=>console.log(`ITS OVER ${SERVER_PORT}`));
+app.listen(PORT,()=>console.log(`ITS OVER ${PORT}`));
 
 
 

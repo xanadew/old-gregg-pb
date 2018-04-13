@@ -14,15 +14,15 @@ class Header extends Component {
                 
                 <div onClick={()=>this.setState({slide:!this.state.slide})}
                     className="arrow">V</div>
-                    <a href="http://localhost:3000/">
+                    <a href={process.env.REACT_APP_FAILURE}>
                     <button className="logout">BEGONE</button></a>
             </nav>
             <div className={this.state.slide?'slide dropdown':'dropdown'}>
-                <a href="http://localhost:3000/#/dash">
+                <a href={process.env.REACT_APP_PRIVATE}>
                 <button className='fs_locator'>Home</button></a>
-            <a href='http://localhost:3000/#/locator'>
+            <a href={process.env.REACT_APP_LOCATOR}>
                 <button className='fs_locator'>Field/Store Locator</button></a>
-                <a href='http://localhost:3000/#/create'>
+                <a href={process.env.REACT_APP_CREATE}>
                 <button className='fs_locator'>Create A Review</button></a>
             </div>
             </div>
