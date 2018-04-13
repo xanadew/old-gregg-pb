@@ -1,6 +1,7 @@
 /*global google*/
 import React from "react"
-import './Locator.css'
+import './Locator.css';
+import _ from 'lodash';
 import { compose, withProps, withHandlers, withState } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
 import {SearchBox} from "react-google-maps/lib/components/places/SearchBox"
@@ -10,8 +11,8 @@ import Header from './Header';
 const MyMapComponent = compose(
     withProps({
         googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyA5eCcxmxACztRIVrfTXxr28d_uegRmMks&v=3.exp&libraries=geometry,drawing,places",
-        loadingElement: <div className='map' style={{ height: `100%` }} />,
-        containerElement: <div className='map' style={{ height: `400px` }} />,
+        loadingElement: <div  style={{ height: `100%` }} />,
+        containerElement: <div  style={{ height: `400px` }} />,
         mapElement: <div className='map' style={{ height: `100%` }} />,
     }),
     withScriptjs,
@@ -30,6 +31,18 @@ const MyMapComponent = compose(
             onSearchBoxMounted: () => ref => {
                 refs.searchBox = ref
             },
+            onPlacesChanged: () => ref => {
+                const places = refs.searchBox.getPlaces();
+                const bounds = new google.maps.LatLngBounds();
+      
+                places.forEach(place => {
+                  if (place.geometry.viewport) {
+                    bounds.union(place.geometry.viewport)
+                  } else {
+                    bounds.extend(place.geometry.location)
+                  }
+                });
+                },
             fetchPlaces: ({ updatePlaces }) => () => {
                 const bounds = refs.map.getBounds();
                 const service = new google.maps.places.PlacesService(refs.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED);
@@ -51,7 +64,7 @@ const MyMapComponent = compose(
         }
     }),
 )((props) => {
-    return (
+    return (<div>
         <GoogleMap
             onTilesLoaded={props.fetchPlaces}
             ref={props.onMapMounted}
@@ -87,7 +100,6 @@ const MyMapComponent = compose(
                 onClick={() => props.onToggleOpen(i)} 
                 key={i} position={{ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }}>
                 {props.selectedPlace === i && <InfoWindow onCloseClick={props.onToggleOpen}>
-            
                     <div>
                         {props.places[props.selectedPlace].name} <br/>
                         {props.places[props.selectedPlace].rating}
@@ -96,7 +108,18 @@ const MyMapComponent = compose(
                 </InfoWindow>}
                 </Marker>
             )}
-        </GoogleMap>
+       </GoogleMap>
+        
+            <ul className='placeslist'>
+            {props.places&& props.places.map(( place, i ) =>
+              <li key={i}>
+                {props.places[i].name},<br/> 
+                {props.places[i].vicinity}
+              </li>
+            )}
+          </ul>
+          </div>
+          
     )
 })
 
@@ -111,7 +134,7 @@ export default class Locator extends React.PureComponent {
     render() {
         return (
             <div>
-<               Header/>
+               <Header/>
                     <MyMapComponent />
             </div>
             

@@ -24,9 +24,6 @@ class Header extends Component {
                 <button className='fs_locator'>Field/Store Locator</button></a>
                 <a href='http://localhost:3000/#/create'>
                 <button className='fs_locator'>Create A Review</button></a>
-
-                <div className='events'>Events</div>
-                <div className='np_guide'>New Player Guide</div>
             </div>
             </div>
         );

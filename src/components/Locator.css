@@ -6,6 +6,19 @@
     height:100%;
     display: inline-block;
     position: relative;
-    margin-top:25px;
+    margin-top:50px;
+}
+.placeslist{
+    align-items: center;
+    align-content: center;
+    display: block;
+    position: relative;
 }
 
+
+
+/* REACT MOTION -- 
+defaultstyle=default starting style
+style=ending style, passed between default and style 
+
+*/

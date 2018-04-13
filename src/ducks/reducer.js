@@ -6,7 +6,7 @@ const initialState = {
   };
   
   const GETREVIEWS = 'GETREVIEWS';
-  const ADDREVIEW = "CREATEREVIEW";
+  const ADDREVIEW = "ADDREVIEW";
   const GET_USER='GET_USER';
 
   
